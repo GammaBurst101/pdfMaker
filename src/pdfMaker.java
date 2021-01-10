@@ -38,6 +38,8 @@ public class pdfMaker {
 		//Adding to frame
 		frame.add(display);
 		frame.add(selectBtn);
+		
+		frame.setVisible(true);
 	}
 	
 	public static void main (String args[]) {

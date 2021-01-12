@@ -8,6 +8,7 @@ public class pdfMaker {
 	private JFrame frame;
 	private JLabel display;
 	private JButton selectBtn;
+	private JButton convertBtn;
 	
 	pdfMaker(){
 		setUpGUI();
@@ -18,6 +19,7 @@ public class pdfMaker {
 		frame = new JFrame("pdfMaker");
 		display = new JLabel("");//Don't know why but if I don't put an empty string the JLabel doesn't show up
 		selectBtn = new JButton("Select File");
+		convertBtn = new JButton("Convert");
 		
 		//Setting up
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,10 +36,12 @@ public class pdfMaker {
 		//Setting the location of all components (should be changed later because hard coding such values is not a good practice)
 		display.setBounds(20, 40, 365, 100);
 		selectBtn.setBounds(150, 185, 100, 40);
+		convertBtn.setBounds(150, 250, 100, 40);
 
 		//Adding to frame
 		frame.add(display);
 		frame.add(selectBtn);
+		frame.add(convertBtn);
 		
 		frame.setVisible(true);
 	}

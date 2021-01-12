@@ -1,7 +1,8 @@
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class pdfMaker {
 	//Declarations
@@ -38,12 +39,22 @@ public class pdfMaker {
 		selectBtn.setBounds(150, 185, 100, 40);
 		convertBtn.setBounds(150, 250, 100, 40);
 
+		//Registering the action listeners
+		selectBtn.addActionListener(new SelectFileListener());
+		
 		//Adding to frame
 		frame.add(display);
 		frame.add(selectBtn);
 		frame.add(convertBtn);
 		
 		frame.setVisible(true);
+	}
+	
+	//Inner class to act as the action listener
+	class SelectFileListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			
+		}
 	}
 	
 	public static void main (String args[]) {

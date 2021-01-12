@@ -25,7 +25,7 @@ public class pdfMaker {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		frame.setResizable(false);
-		frame.setSize(425, 425);
+		frame.setSize(425, 400);
 		frame.setLocationRelativeTo(null);
 		frame.setLayout(null);
 		

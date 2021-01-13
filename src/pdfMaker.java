@@ -1,5 +1,6 @@
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -57,6 +58,7 @@ public class pdfMaker {
 		public void actionPerformed(ActionEvent e) {
 			JFileChooser fileChooser = new JFileChooser();
 			fileChooser.setCurrentDirectory(null);
+			fileChooser.setFileFilter(new FileNameExtensionFilter("MS Word file(.docx)", "docx"));
 			int result = fileChooser.showOpenDialog(frame);
 			
 			if (result == JFileChooser.APPROVE_OPTION) {

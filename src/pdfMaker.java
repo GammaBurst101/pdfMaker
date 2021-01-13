@@ -3,6 +3,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.File;
 
 public class pdfMaker {
 	//Declarations
@@ -10,6 +11,7 @@ public class pdfMaker {
 	private JLabel display;
 	private JButton selectBtn;
 	private JButton convertBtn;
+	private File file;
 	
 	pdfMaker(){
 		setUpGUI();
@@ -53,7 +55,13 @@ public class pdfMaker {
 	//Inner class to act as the action listener
 	class SelectFileListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setCurrentDirectory(null);
+			int result = fileChooser.showOpenDialog(frame);
 			
+			if (result == JFileChooser.APPROVE_OPTION) {
+				file = fileChooser.getSelectedFile();
+			}
 		}
 	}
 	

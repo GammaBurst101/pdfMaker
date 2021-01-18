@@ -44,6 +44,7 @@ public class pdfMaker {
 
 		//Registering the action listeners
 		selectBtn.addActionListener(new SelectFileListener());
+		convertBtn.addActionListener(new ConvertFileListener());
 		
 		//Adding to frame
 		frame.add(display);
@@ -64,6 +65,12 @@ public class pdfMaker {
 			if (result == JFileChooser.APPROVE_OPTION) {
 				file = fileChooser.getSelectedFile();
 			}
+		}
+	}
+	
+	class ConvertFileListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			//convert file here
 		}
 	}
 	

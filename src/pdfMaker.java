@@ -2,9 +2,13 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.io.FileOutputStream;
+
+import com.aspose.words.*;
 
 public class pdfMaker {
 	//Declarations
@@ -68,10 +72,48 @@ public class pdfMaker {
 		}
 	}
 	
-	class ConvertFileListener implements ActionListener{
+	class ConvertFileListener implements ActionListener{//Converts the chosen file when 'convert' btn is pressed
+		
 		public void actionPerformed(ActionEvent e) {
-			//convert file here
+			
+			FileOutputStream outputStream = null;
+			try {//The conversion can throw an exception
+				Document doc = new Document(file.getAbsolutePath());
+				
+				//Let user choose the save location
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(null);
+				fileChooser.setFileFilter(new DirFilter());//Filter to only display folders
+				int result = fileChooser.showOpenDialog(frame);
+				File chosenDir = null;
+				
+				//If a valid option is chosen
+				if (result == JFileChooser.APPROVE_OPTION) {
+					chosenDir = fileChooser.getSelectedFile();//Get the selected directory
+					outputStream = new FileOutputStream(chosenDir);//Get a outputStream which has to be given to the save()
+				}
+				
+				//Saving the document to the chosen location as pdf (the user has to write "fileName.pdf" instead of only "fileName"
+				//while saving for it to work. I don't know why it has to be this way...lol XD
+				doc.save(outputStream, SaveFormat.PDF);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			
 		}
+		
+		private class DirFilter extends javax.swing.filechooser.FileFilter {
+			public boolean accept(File file) {
+				return file.isDirectory();
+			}
+
+			//This method is abstract in FileFilter library class and thus, we have to implement it
+			@Override
+			public String getDescription() {
+				return null;
+			}
+		}
+		
 	}
 	
 	public static void main (String args[]) {

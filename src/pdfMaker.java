@@ -68,6 +68,7 @@ public class pdfMaker {
 			
 			if (result == JFileChooser.APPROVE_OPTION) {//Check whether the user has chosen a valid file
 				file = fileChooser.getSelectedFile();
+				display.setText(file.getName());//Display the selected file name
 			}
 		}
 	}

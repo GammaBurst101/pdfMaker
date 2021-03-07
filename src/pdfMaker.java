@@ -63,10 +63,10 @@ public class pdfMaker {
 		public void actionPerformed(ActionEvent e) {
 			JFileChooser fileChooser = new JFileChooser();
 			fileChooser.setCurrentDirectory(null);
-			fileChooser.setFileFilter(new FileNameExtensionFilter("MS Word file(.docx)", "docx"));
-			int result = fileChooser.showOpenDialog(frame);
+			fileChooser.setFileFilter(new FileNameExtensionFilter("MS Word file(.docx)", "docx"));//Only allow .docx files to be selected
+			int result = fileChooser.showOpenDialog(frame);//Display the 'open' dialog box for the viewer to select the file
 			
-			if (result == JFileChooser.APPROVE_OPTION) {
+			if (result == JFileChooser.APPROVE_OPTION) {//Check whether the user has chosen a valid file
 				file = fileChooser.getSelectedFile();
 			}
 		}

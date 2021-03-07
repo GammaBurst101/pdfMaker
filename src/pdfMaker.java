@@ -39,6 +39,7 @@ public class pdfMaker {
 		
 		display.setFont(new Font("Arial", Font.PLAIN, 20));
 		display.setBorder(new LineBorder(Color.BLACK));
+		display.setHorizontalAlignment(SwingConstants.CENTER);
 		
 
 		//Setting the location of all components (should be changed later because hard coding such values is not a good practice)

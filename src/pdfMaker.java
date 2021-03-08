@@ -38,8 +38,9 @@ public class pdfMaker {
 		frame.setLayout(null);
 		
 		display.setFont(new Font("Arial", Font.PLAIN, 20));
-		display.setBorder(new LineBorder(Color.BLACK));
 		display.setHorizontalAlignment(SwingConstants.CENTER);
+		display.setOpaque(true);//Make the display opaque so that the background color can be set
+		display.setBackground(Color.WHITE);//Setting the background color of the display to white
 		
 
 		//Setting the location of all components (should be changed later because hard coding such values is not a good practice)

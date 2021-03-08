@@ -3,7 +3,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.Font;
+import java.awt.Shape;
 import java.awt.event.ActionListener;
+import java.awt.geom.RoundRectangle2D;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -26,8 +28,8 @@ public class pdfMaker {
 		//Initializations
 		frame = new JFrame("pdfMaker");
 		display = new JLabel("");//Don't know why but if I don't put an empty string the JLabel doesn't show up
-		selectBtn = new JButton("Select File");
-		convertBtn = new JButton("Convert");
+		selectBtn = new CustomBtn("Select File");
+		convertBtn = new CustomBtn("Convert");
 		
 		//Setting up
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,6 +60,40 @@ public class pdfMaker {
 		frame.add(convertBtn);
 		
 		frame.setVisible(true);
+	}
+	
+	//Custom buttons - code for this is taken from https://harryjoy.me/2011/08/21/different-button-shapes-in-swing/
+	class CustomBtn extends JButton {
+		
+		CustomBtn(String label){
+			super(label);
+			Dimension size = getPreferredSize();
+			size.width = size.height = Math.max(size.width, size.height);
+			setPreferredSize(size);
+			setContentAreaFilled(false);
+		}
+		
+		protected void paintComponent(Graphics g) {
+		     if (getModel().isArmed()) {
+		          g.setColor(Color.lightGray);
+		     } else {
+		          g.setColor(getBackground());
+		     }
+		     g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 15, 15);
+		     super.paintComponent(g);
+		}
+		protected void paintBorder(Graphics g) {
+		     g.setColor(getForeground());
+		     g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 15, 15);
+		}
+		
+		Shape shape;
+		public boolean contains(int x, int y) {
+		     if (shape == null || !shape.getBounds().equals(getBounds())) {
+		          shape = new RoundRectangle2D.Float(0, 0, getWidth()-1, getHeight()-1, 15, 15);
+		     }
+		     return shape.contains(x, y);
+		}
 	}
 	
 	//Inner class to act as the action listener

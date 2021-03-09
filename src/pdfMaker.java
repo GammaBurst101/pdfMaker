@@ -38,6 +38,7 @@ public class pdfMaker {
 		frame.setSize(425, 400);
 		frame.setLocationRelativeTo(null);
 		frame.setLayout(null);
+		frame.getContentPane().setBackground(new Color(240, 240, 240));
 		
 		display.setFont(new Font("Arial", Font.PLAIN, 20));
 		display.setHorizontalAlignment(SwingConstants.CENTER);

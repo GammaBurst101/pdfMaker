@@ -44,7 +44,9 @@ public class pdfMaker {
 		display.setOpaque(true);//Make the display opaque so that the background color can be set
 		display.setBackground(Color.WHITE);//Setting the background color of the display to white
 		
-
+		selectBtn.setFocusPainted(false);//Don't allow the rectangle which indicates focus to display when the button is clicked
+		convertBtn.setFocusPainted(false);
+		
 		//Setting the location of all components (should be changed later because hard coding such values is not a good practice)
 		display.setBounds(20, 40, 365, 100);
 		selectBtn.setBounds(150, 185, 100, 40);

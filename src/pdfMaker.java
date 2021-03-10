@@ -25,6 +25,14 @@ public class pdfMaker {
 	}
 	
 	private void setUpGUI() {
+		//Set the look and feel to the system's default look and feel
+		//This makes the 'open' dialog box look better
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		//Initializations
 		frame = new JFrame("pdfMaker");
 		display = new JLabel("");//Don't know why but if I don't put an empty string the JLabel doesn't show up
@@ -124,6 +132,7 @@ public class pdfMaker {
 				
 				//Let user choose the save location
 				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setApproveButtonText("Save");//Change the default 'open' label on the button in the dialog box to something meaningful
 				fileChooser.setCurrentDirectory(null);
 				fileChooser.setFileFilter(new DirFilter());//Filter to only display folders
 				int result = fileChooser.showOpenDialog(frame);

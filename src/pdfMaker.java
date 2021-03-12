@@ -3,7 +3,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.Font;
+import java.awt.Shape;
 import java.awt.event.ActionListener;
+import java.awt.geom.RoundRectangle2D;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,11 +25,19 @@ public class pdfMaker {
 	}
 	
 	private void setUpGUI() {
+		//Set the look and feel to the system's default look and feel
+		//This makes the 'open' dialog box look better
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		//Initializations
 		frame = new JFrame("pdfMaker");
 		display = new JLabel("");//Don't know why but if I don't put an empty string the JLabel doesn't show up
-		selectBtn = new JButton("Select File");
-		convertBtn = new JButton("Convert");
+		selectBtn = new CustomBtn("Select File");
+		convertBtn = new CustomBtn("Convert");
 		
 		//Setting up
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,11 +46,16 @@ public class pdfMaker {
 		frame.setSize(425, 400);
 		frame.setLocationRelativeTo(null);
 		frame.setLayout(null);
+		frame.getContentPane().setBackground(new Color(240, 240, 240));
 		
 		display.setFont(new Font("Arial", Font.PLAIN, 20));
-		display.setBorder(new LineBorder(Color.BLACK));
+		display.setHorizontalAlignment(SwingConstants.CENTER);
+		display.setOpaque(true);//Make the display opaque so that the background color can be set
+		display.setBackground(Color.WHITE);//Setting the background color of the display to white
 		
-
+		selectBtn.setFocusPainted(false);//Don't allow the rectangle which indicates focus to display when the button is clicked
+		convertBtn.setFocusPainted(false);
+		
 		//Setting the location of all components (should be changed later because hard coding such values is not a good practice)
 		display.setBounds(20, 40, 365, 100);
 		selectBtn.setBounds(150, 185, 100, 40);
@@ -58,6 +73,40 @@ public class pdfMaker {
 		frame.setVisible(true);
 	}
 	
+	//Custom buttons - code for this is taken from https://harryjoy.me/2011/08/21/different-button-shapes-in-swing/
+	class CustomBtn extends JButton {
+		
+		CustomBtn(String label){
+			super(label);
+			Dimension size = getPreferredSize();
+			size.width = size.height = Math.max(size.width, size.height);
+			setPreferredSize(size);
+			setContentAreaFilled(false);
+		}
+		
+		protected void paintComponent(Graphics g) {
+		     if (getModel().isArmed()) {
+		          g.setColor(Color.lightGray);
+		     } else {
+		          g.setColor(getBackground());
+		     }
+		     g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 15, 15);
+		     super.paintComponent(g);
+		}
+		protected void paintBorder(Graphics g) {
+		     g.setColor(getForeground());
+		     g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 15, 15);
+		}
+		
+		Shape shape;
+		public boolean contains(int x, int y) {
+		     if (shape == null || !shape.getBounds().equals(getBounds())) {
+		          shape = new RoundRectangle2D.Float(0, 0, getWidth()-1, getHeight()-1, 15, 15);
+		     }
+		     return shape.contains(x, y);
+		}
+	}
+	
 	//Inner class to act as the action listener
 	class SelectFileListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
@@ -68,6 +117,7 @@ public class pdfMaker {
 			
 			if (result == JFileChooser.APPROVE_OPTION) {//Check whether the user has chosen a valid file
 				file = fileChooser.getSelectedFile();
+				display.setText(file.getName());//Display the selected file name
 			}
 		}
 	}
@@ -82,6 +132,7 @@ public class pdfMaker {
 				
 				//Let user choose the save location
 				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setApproveButtonText("Save");//Change the default 'open' label on the button in the dialog box to something meaningful
 				fileChooser.setCurrentDirectory(null);
 				fileChooser.setFileFilter(new DirFilter());//Filter to only display folders
 				int result = fileChooser.showOpenDialog(frame);

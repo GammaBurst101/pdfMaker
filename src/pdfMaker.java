@@ -1,16 +1,16 @@
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.Font;
-import java.awt.Shape;
 import java.awt.event.ActionListener;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileOutputStream;
-
 import com.aspose.words.*;
+
+//Explicit imports to prevent the confusion between similar named classes in java.awt and aspose.words
+import java.awt.Font;
+import java.awt.Shape;
 
 public class pdfMaker {
 	//Declarations
@@ -19,10 +19,6 @@ public class pdfMaker {
 	private JButton selectBtn;
 	private JButton convertBtn;
 	private File file;
-	
-	pdfMaker(){
-		setUpGUI();
-	}
 	
 	private void setUpGUI() {
 		//Set the look and feel to the system's default look and feel
@@ -122,7 +118,8 @@ public class pdfMaker {
 		}
 	}
 	
-	class ConvertFileListener implements ActionListener{//Converts the chosen file when 'convert' btn is pressed
+	//Converts the chosen file when 'convert' btn is pressed
+	class ConvertFileListener implements ActionListener{
 		
 		public void actionPerformed(ActionEvent e) {
 			
@@ -153,6 +150,7 @@ public class pdfMaker {
 			
 		}
 		
+		//Utility class for filtering out the directories when file chooser is open while converting
 		private class DirFilter extends javax.swing.filechooser.FileFilter {
 			public boolean accept(File file) {
 				return file.isDirectory();
@@ -165,6 +163,10 @@ public class pdfMaker {
 			}
 		}
 		
+	}
+	
+	pdfMaker(){
+		setUpGUI();
 	}
 	
 	public static void main (String args[]) {

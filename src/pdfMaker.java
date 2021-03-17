@@ -19,6 +19,7 @@ public class pdfMaker {
 	private JButton selectBtn;
 	private JButton convertBtn;
 	private File file;
+	private Document doc;
 	
 	private void setUpGUI() {
 		//Set the look and feel to the system's default look and feel
@@ -114,6 +115,14 @@ public class pdfMaker {
 			if (result == JFileChooser.APPROVE_OPTION) {//Check whether the user has chosen a valid file
 				file = fileChooser.getSelectedFile();
 				display.setText(file.getName());//Display the selected file name
+				
+				//Doing this over here to make the conversion time shorter
+				try {
+					doc = new Document(file.getAbsolutePath());
+					doc.updatePageLayout();
+				}catch (Exception error) {
+					error.printStackTrace();
+				}
 			}
 		}
 	}
@@ -125,7 +134,6 @@ public class pdfMaker {
 			
 			FileOutputStream outputStream = null;
 			try {//The conversion can throw an exception
-				Document doc = new Document(file.getAbsolutePath());
 				
 				//Let user choose the save location
 				JFileChooser fileChooser = new JFileChooser();

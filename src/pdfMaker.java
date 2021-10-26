@@ -1,3 +1,4 @@
+//App is developed as a hybrid between swing and awt
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
@@ -6,6 +7,8 @@ import java.awt.geom.RoundRectangle2D;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileOutputStream;
+
+//Importing the aspose library for conversion
 import com.aspose.words.*;
 
 //Explicit imports to prevent the confusion between similar named classes in java.awt and aspose.words
@@ -21,6 +24,7 @@ public class pdfMaker {
 	private File file;
 	private Document doc;
 	
+	//Sets up the user interface of the app on startup
 	private void setUpGUI() {
 		//Set the look and feel to the system's default look and feel
 		//This makes the 'open' dialog box look better
@@ -70,7 +74,8 @@ public class pdfMaker {
 		frame.setVisible(true);
 	}
 	
-	//Custom buttons - code for this is taken from https://harryjoy.me/2011/08/21/different-button-shapes-in-swing/
+	//A customized button to be used in the app
+	//Code for this is taken from https://harryjoy.me/2011/08/21/different-button-shapes-in-swing/
 	class CustomBtn extends JButton {
 		
 		CustomBtn(String label){
@@ -177,6 +182,7 @@ public class pdfMaker {
 		setUpGUI();
 	}
 	
+	//Driver main method
 	public static void main (String args[]) {
 		new pdfMaker();
 	}
